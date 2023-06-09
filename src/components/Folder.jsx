@@ -3,7 +3,7 @@ import { FaFilePdf,FaFileWord,FaFileArchive,FaFilePowerpoint,FaFileAlt,
   FaFileExcel,FaFileCode, FaFolderOpen, FaFolder, FaFile,} from "react-icons/fa";
 
 
-function Folder({ folder, depth = 0, handleDeleteItem, handleRenameItem }) {
+function Folder({ folder, depth = 0, handleDeleteItem,index }) {
   const [expanded, setExpanded] = useState(false);
   const [newFolderName, setNewFolderName] = useState('');
   const [newFileName, setNewFileName] = useState('');
@@ -66,15 +66,28 @@ function Folder({ folder, depth = 0, handleDeleteItem, handleRenameItem }) {
 
   const handleRenameSubmit = (event) => {
     event.preventDefault();
-    console.log(renameValue)
+      console.log(renameValue);
+      console.log(index)
+      console.log(folder)
     const newChildren = [...folder.children];
+    console.log(newChildren)
     newChildren[renameIndex].name = renameValue;
     folder.children = newChildren;
     setRenameIndex(-1);
     setRenameValue('');
   };
-
   const handleCancelRename = () => {
+    setRenameIndex(-1);
+    setRenameValue('');
+  };
+  console.log(folder)
+
+  const handleRenameFolderSubmit = (event) => {
+    event.preventDefault()
+    folder.name = renameValue
+    // const newChildren = [...folder.children];
+    // newChildren[index].name = renameValue;
+    // folder.children = newChildren;
     setRenameIndex(-1);
     setRenameValue('');
   };
@@ -88,7 +101,7 @@ function Folder({ folder, depth = 0, handleDeleteItem, handleRenameItem }) {
         {renameIndex === -1 ? (
           <span className="w-1/2">{folder.name}</span>
         ) : (
-          <form onSubmit={handleRenameSubmit}>
+          <form onSubmit={handleRenameFolderSubmit}>
             <input
               type="text"
               value={renameValue}
@@ -102,8 +115,8 @@ function Folder({ folder, depth = 0, handleDeleteItem, handleRenameItem }) {
           </form>
         )}
         <div className="w-1/2 flex justify-around">
-        <button onClick={() => handleDeleteItem(folder)}>Delete</button>
-        <button onClick={() => setRenameIndex(-2)}>Rename</button>
+        <button onClick={() => handleDeleteItem(folder)} className="bg-red-400 rounded-lg px-3 px-2">Delete</button>
+        <button onClick={() => setRenameIndex(index)} className="bg-stone-400 rounded-lg px-3 px-2">Rename</button>
         </div>
       </div>
       {expanded && (
@@ -116,6 +129,7 @@ function Folder({ folder, depth = 0, handleDeleteItem, handleRenameItem }) {
                 depth={depth + 1}
                 handleDeleteItem={(item) => handleDeleteItem(item)}
                 handleRenameItem={(index) => setRenameIndex(index)}
+                index={index}
               />
             ) : (
               <div style={{ marginLeft: (depth + 1) * 20 }} key={child.name} className="flex justify-between items-center px-3 py-2">
