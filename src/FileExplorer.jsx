@@ -22,6 +22,7 @@ function FileExplorer() {
 
   return (
     <div className='m-20'>
+      <div className='mb-5 text-4xl font-bold'>File Explorer</div>
       <Folder
         folder={rootFolder}
         handleDeleteItem={(item) => handleDeleteItem(item)}

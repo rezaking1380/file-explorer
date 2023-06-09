@@ -66,11 +66,7 @@ function Folder({ folder, depth = 0, handleDeleteItem,index }) {
 
   const handleRenameSubmit = (event) => {
     event.preventDefault();
-      console.log(renameValue);
-      console.log(index)
-      console.log(folder)
     const newChildren = [...folder.children];
-    console.log(newChildren)
     newChildren[renameIndex].name = renameValue;
     folder.children = newChildren;
     setRenameIndex(-1);
@@ -80,7 +76,6 @@ function Folder({ folder, depth = 0, handleDeleteItem,index }) {
     setRenameIndex(-1);
     setRenameValue('');
   };
-  console.log(folder)
 
   const handleRenameFolderSubmit = (event) => {
     event.preventDefault()
